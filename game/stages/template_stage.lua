@@ -2,7 +2,7 @@ local class = require "lib.lua-oop"
 
 require "engine.core"
 require "engine.stage"
-require "util.color"
+require "engine.util.color"
 
 local template_stage = class("Stage-Template", Stage)
 
@@ -34,6 +34,7 @@ function template_stage:beforeChange()
 
     -- code to be executed before changing to another stages
     -- this method is called by the StageManager
+    -- can be useful to destroy or stop the execution of something
 
 end
 

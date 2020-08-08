@@ -1,7 +1,7 @@
 local class = require "lib.lua-oop"
 
-require "util.math.vector"
-require "util.color"
+require "engine.util.math.vector"
+require "engine.util.color"
 require "engine.stage.hitbox"
 
 StageObject = class "StageObject"

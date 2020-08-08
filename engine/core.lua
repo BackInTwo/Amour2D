@@ -1,4 +1,4 @@
-require "util.color"
+require "engine.util.color"
 
 function getBackgroundColor()
 
@@ -17,7 +17,7 @@ function setBackgroundColor(r, g, b, a)
 end
 
 function getImageScaleForNewDimensions( image, newWidth, newHeight )
-    
+
     local currentWidth, currentHeight = image:getDimensions()
     return ( newWidth / currentWidth ), ( newHeight / currentHeight )
 

@@ -1,5 +1,5 @@
 local class = require "lib.lua-oop"
-local Color = require "util.color"
+local Color = require "engine.util.color"
 
 require "engine.objects.basic"
 

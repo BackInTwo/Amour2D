@@ -2,7 +2,7 @@ require "engine.stage.manager"
 
 local stageManager = nil
 
-profilerEnabled = false -- toggle on or off the profiler (wont work changing it on runtime)
+profilerEnabled = true -- toggle on or off the profiler (wont work changing it on runtime)
 
 function love.load()
 

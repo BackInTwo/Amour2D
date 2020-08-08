@@ -1,7 +1,7 @@
 local class = require "lib.lua-oop"
 
-require "util.color"
-require "util.math.vector"
+require "engine.util.color"
+require "engine.util.math.vector"
 require "engine.core"
 require "engine.stage.object"
 
