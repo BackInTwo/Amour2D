@@ -23,11 +23,19 @@ function initial_stage:init()
 
     self:addObject(FpsObj:new())
 
+    --self:setInterval(function()
+        print "a"
+    --end, 2)
+
 end
 
 function initial_stage:update(dt)
 
     -- update code here
+
+    if love.keyboard.isDown("return") then
+        self.stageManager:changeStage("game.stages.initial_stage")
+    end
 
 end
 

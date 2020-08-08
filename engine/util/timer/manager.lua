@@ -85,3 +85,14 @@ function TimerManager:destroy(timerId)
     self.timers[timerId] = nil
 
 end
+
+function TimerManager:cleanup()
+
+    for k,timer in pairs(self.timers) do
+        if type(timer) == "table" then
+            self.timers[k] = nil
+            timer:destroy()
+        end
+    end
+
+end

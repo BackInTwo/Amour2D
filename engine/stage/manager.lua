@@ -1,8 +1,12 @@
 local class = require "lib.lua-oop"
 
+require "engine.util.timer.manager"
+
 StageManager = class "StageManager"
 
 function StageManager:constructor(initialStage)
+
+    self.timerManager = TimerManager:new()
 
     self:changeStage(initialStage)
 
@@ -16,6 +20,8 @@ function StageManager:changeStage(stage)
 
     assert(type(stage) == "string" or type(stage) == "table", "Stage is not a string path or an object (StageManager)")
 
+    self.timerManager:cleanup()
+
     if self.currentStage then
         self.currentStage:_beforeChange(nextStage)
     end
@@ -25,6 +31,7 @@ function StageManager:changeStage(stage)
     print("Change stage to " .. self.currentStage.class.name)
 
     self.currentStage.stageManager = self
+    self.currentStage.timerManager = self.timerManager
 
     self.currentStage:_init()
 

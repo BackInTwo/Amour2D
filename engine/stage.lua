@@ -11,8 +11,6 @@ function Stage:constructor()
     self.v.firstUpdate = true
     self.objects = {}
 
-    self.timerManager = TimerManager:new()
-
     self.mouseObj = MouseObj:new()
     self:addObject(self.mouseObj)
 
@@ -158,6 +156,12 @@ function Stage:getObjects(className)
 
     return objects
 
+end
+
+-- SHORTCUTS
+
+function Stage:changeStage(stage)
+    self.stageManager:changeStage(stage)
 end
 
 function Stage:setTimeout(func, timeSecs)
