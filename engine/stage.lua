@@ -2,6 +2,7 @@ local class = require "lib.lua-oop"
 local Color = require "engine.util.color"
 
 require "engine.objects.basic"
+require "engine.util.timer.manager"
 
 Stage = class "Stage"
 
@@ -9,6 +10,8 @@ function Stage:constructor()
 
     self.v.firstUpdate = true
     self.objects = {}
+
+    self.timerManager = TimerManager:new()
 
     self.mouseObj = MouseObj:new()
     self:addObject(self.mouseObj)
@@ -37,6 +40,8 @@ function Stage:_update(dt)
     end
 
     self:update(dt)
+
+    self.timerManager:update()
 
 end
 
@@ -153,4 +158,16 @@ function Stage:getObjects(className)
 
     return objects
 
+end
+
+function Stage:setTimeout(func, timeSecs)
+    self.timerManager:setTimeout(func, timeSecs)
+end
+
+function Stage:setInterval(func, timeSecs)
+    self.timerManager:setInterval(func, timeSecs)
+end
+
+function Stage:destroyTimer(timerID)
+    self.timerManager:destroy(timerID)
 end

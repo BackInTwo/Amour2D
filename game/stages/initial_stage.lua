@@ -21,6 +21,8 @@ function initial_stage:init()
 
     love.window.setTitle("Amour (Base)")
 
+    self:addObject(FpsObj:new())
+
 end
 
 function initial_stage:update(dt)
