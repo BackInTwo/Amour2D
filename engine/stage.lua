@@ -158,6 +158,10 @@ function Stage:getObjects(className)
 
 end
 
+function Stage:getAllObjects()
+    return self.objects
+end
+
 -- SHORTCUTS
 
 function Stage:changeStage(stage)

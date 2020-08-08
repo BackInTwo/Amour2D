@@ -22,8 +22,6 @@ function Color:constructor(r, g, b, a)
 
     self:set(r, g, b, a)
 
-    self.isDecimal = false
-
     self:clip()
 
 end
@@ -40,62 +38,133 @@ function Color:invert()
 
 end
 
-function Color:plus(other)
+function Color:sum(o, g, b, a)
 
-    self.r = self.r + o.r
-    self.g = self.g + o.g
-    self.b = self.b + o.b
-    self.a = self.a + o.a
+    if not o then o = 1 end
+    if not g then g = 1 end
+    if not b then b = 1 end
+    if not a then a = 1 end
+
+    if type(other) == "table" then
+        self.r = self.r + o.r
+        self.g = self.g + o.g
+        self.b = self.b + o.b
+        self.a = self.a + o.a
+    elseif type(other) == "number" then
+        self.r = self.r + o
+        self.g = self.g + g
+        self.b = self.b + b
+        self.a = self.a + a
+    end
 
     self:clip()
+
+    return self
 
 end
 
-function Color:minus(other)
+function Color:subtract(o, g, b, a)
 
-    self.r = self.r - o.r
-    self.g = self.g - o.g
-    self.b = self.b - o.b
-    self.a = self.a - o.a
+    if not o then o = 1 end
+    if not g then g = 1 end
+    if not b then b = 1 end
+    if not a then a = 1 end
+
+    if type(other) == "table" then
+        self.r = self.r - o.r
+        self.g = self.g - o.g
+        self.b = self.b - o.b
+        self.a = self.a - o.a
+    elseif type(other) == "number" then
+        self.r = self.r - o
+        self.g = self.g - g
+        self.b = self.b - b
+        self.a = self.a - a
+    end
 
     self:clip()
+
+    return self
 
 end
 
-function Color:multiply(other)
+function Color:multiply(o, g, b, a)
 
-    self.r = self.r * o.r
-    self.g = self.g * o.g
-    self.b = self.b * o.b
-    self.a = self.a * o.a
+    if not o then o = 1 end
+    if not g then g = 1 end
+    if not b then b = 1 end
+    if not a then a = 1 end
+
+    if type(other) == "table" then
+        self.r = self.r * o.r
+        self.g = self.g * o.g
+        self.b = self.b * o.b
+        self.a = self.a * o.a
+    elseif type(other) == "number" then
+        self.r = self.r * o
+        self.g = self.g * g
+        self.b = self.b * b
+        self.a = self.a * a
+    end
 
     self:clip()
+
+    return self
 
 end
 
-function Color:divide(other)
+function Color:divide(o, g, b, a)
 
-    self.r = self.r / o.r
-    self.g = self.g / o.g
-    self.b = self.b / o.b
-    self.a = self.a / o.a
+    if not o then o = 1 end
+    if not g then g = 1 end
+    if not b then b = 1 end
+    if not a then a = 1 end
+
+    if type(other) == "table" then
+        self.r = self.r / o.r
+        self.g = self.g / o.g
+        self.b = self.b / o.b
+        self.a = self.a / o.a
+    elseif type(other) == "number" then
+        self.r = self.r / o
+        self.g = self.g / g
+        self.b = self.b / b
+        self.a = self.a / a
+    end
 
     self:clip()
+
+    return self
 
 end
 
 function Color:clip()
 
-    self.r = clip(self.r, 0, 255)
-    self.g = clip(self.g, 0, 255)
-    self.b = clip(self.b, 0, 255)
-    self.a = clip(self.a, 0, 255)
+    -- Improve performance by storing frequent
+    -- function in a local variable
+    local clipLoc = clip
+
+    self.r = clipLoc(self.r, 0, 255)
+    self.g = clipLoc(self.g, 0, 255)
+    self.b = clipLoc(self.b, 0, 255)
+    self.a = clipLoc(self.a, 0, 255)
 
     return self
 
 end
 
 function Color:set(r, g, b, a)
+
+    -- if first parameter is an object
+    -- hopefully another color...
+    if type(r) == "table" then
+        local col = r
+        self.r = col.r
+        self.g = col.g
+        self.b = col.b
+        self.a = col.a
+        return
+    end
 
     if r then
         self.r = r
@@ -137,9 +206,7 @@ end
 
 function Color:clone()
 
-    local newColor = Color:new(self.r, self.g, self.b, self.a)
-
-    return newColor
+    return Color:new(self.r, self.g, self.b, self.a)
 
 end
 

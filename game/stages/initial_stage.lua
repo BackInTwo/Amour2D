@@ -23,9 +23,9 @@ function initial_stage:init()
 
     self:addObject(FpsObj:new())
 
-    --self:setInterval(function()
+    self:setInterval(function()
         print "a"
-    --end, 2)
+    end, 2)
 
 end
 

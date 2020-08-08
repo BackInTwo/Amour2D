@@ -57,7 +57,7 @@ function StageObject:setPosition(position)
 
         if position then
             assert(type(position) == "table", "Position is not an object (StageObject)")
-            self.position = position
+            self.position = position:clone()
         else
             self.position = Vector2:new(0, 0)
         end
@@ -68,7 +68,7 @@ function StageObject:setSize(size)
 
         if size then
             assert(type(size) == "table", "Size is not an object (StageObject)")
-            self.size = size
+            self.size = size:clone()
         else
             self.size = Vector2:new(400, 200)
         end
@@ -78,7 +78,7 @@ end
 function StageObject:setColor(color)
 
     if color then
-        self.color = color
+        self.color = color:clone()
     else
         self.color = Color:new(255, 255, 255, 255)
     end

@@ -34,11 +34,14 @@ function Vector2:set(x, y)
 
 end
 
-function Vector2:multiply(by)
+function Vector2:minus(by, y)
+
+    if not by then g = 1 end
+    if not y then b = 1 end
 
     if type(by) == "number" then
         self.x = self.x * by
-        self.y = self.y * by
+        self.y = self.y * y
     elseif type(by) == "table" then
         self.x = self.x * by.x
         self.y = self.y * by.y
@@ -48,7 +51,81 @@ function Vector2:multiply(by)
 
 end
 
-function Vector2:toArray()
+function Vector2:sum(by, y)
+
+    if not by then g = 1 end
+    if not y then b = 1 end
+
+    if type(by) == "number" then
+        self.x = self.x + by
+        self.y = self.y + y
+    elseif type(by) == "table" then
+        self.x = self.x + by.x
+        self.y = self.y + by.y
+    end
+
+    return self
+
+end
+
+function Vector2:subtract(by, y)
+
+    if not by then g = 1 end
+    if not y then b = 1 end
+
+    if type(by) == "number" then
+        self.x = self.x - by
+        self.y = self.y - y
+    elseif type(by) == "table" then
+        self.x = self.x - by.x
+        self.y = self.y - by.y
+    end
+
+    return self
+
+end
+
+function Vector2:multiply(by, y)
+
+    if not by then g = 1 end
+    if not y then b = 1 end
+
+    if type(by) == "number" then
+        self.x = self.x * by
+        self.y = self.y * y
+    elseif type(by) == "table" then
+        self.x = self.x * by.x
+        self.y = self.y * by.y
+    end
+
+    return self
+
+end
+
+function Vector2:divide(by, y)
+
+    if not by then g = 1 end
+    if not y then b = 1 end
+
+    if type(by) == "number" then
+        self.x = self.x / by
+        self.y = self.y / y
+    elseif type(by) == "table" then
+        self.x = self.x / by.x
+        self.y = self.y / by.y
+    end
+
+    return self
+
+end
+
+function Vector2:clone()
+
+    return Vector2:new(self.x, self.y)
+
+end
+
+function Vector2:get()
 
     return { self.x, self.y }
 
