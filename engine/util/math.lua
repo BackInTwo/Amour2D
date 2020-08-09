@@ -1,4 +1,6 @@
-function clip(value, min, max)
+local Math = {}
+
+Math.clip = function(value, min, max)
 
     if value > max then
         return max
@@ -10,6 +12,8 @@ function clip(value, min, max)
 
 end
 
-function round(value)
+Math.round = function(value)
     math.floor((self.orderSize * 1.7)+0.5)
 end
+
+return Math

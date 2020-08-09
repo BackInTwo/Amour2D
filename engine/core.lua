@@ -9,7 +9,7 @@ end
 function setBackgroundColor(r, g, b, a)
 
     if type(r) == "table" then
-        r, g, b, a = color.get()
+        r, g, b, a = r.get()
     end
 
     love.graphics.setBackgroundColor(r/255, g/255, b/255, a/255)
