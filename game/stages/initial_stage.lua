@@ -1,14 +1,11 @@
 local class = require "lib.lua-oop"
-
-require "engine.core"
-require "engine.stage"
-require "engine.util.color"
+local Stage = require "amour.stage"
 
 local initial_stage = class("Stage-Initial", Stage)
 
-function initial_stage:constructor()
+function initial_stage:constructor(stageManager)
 
-    Stage.constructor(self) -- Don't forget to always call superclass constructor
+    Stage.constructor(self, stageManager) -- Don't forget to always call superclass constructor
 
 end
 
@@ -20,6 +17,8 @@ function initial_stage:init()
     setBackgroundColor(0, 0, 0, 255)
 
     love.window.setTitle("Amour (Base)")
+
+    self:addObject(FpsObj:new()) -- Add object, FpsObj is a basic object included with the engine
 
 end
 

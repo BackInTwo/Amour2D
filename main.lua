@@ -1,8 +1,8 @@
-require "engine.stage.manager"
+local modules = require "modules"
 
 local stageManager = nil
 
-profilerEnabled = true -- toggle on or off the profiler (wont work changing it on runtime)
+profilerEnabled = false -- toggle on or off the profiler (wont work changing it on runtime)
 
 function love.load()
 
@@ -13,19 +13,20 @@ function love.load()
     love.profiler.start()
     love.frame = 0
 
-    math.randomseed(os.time() * 1000)
+    -- setting the seed with the current time for better random results
+    math.randomseed(os.clock()*100000000000)
 
-    stageManager = StageManager:new("game.stages.initial_stage")
+    stageManager = modules.StageManager:new("game.stages.initial_stage", modules)
 
 end
 
 function love.update(dt)
 
-    math.randomseed((os.time() * 1000) * (math.random(0, os.time() * 1000)))
+    math.randomseed(os.clock()*100000000000)
 
     stageManager:getCurrentStage():_update(dt)
 
-    -- profiling stuff
+    -- profiling
     love.frame = love.frame + 1
     if love.frame%100 == 0 and profilerEnabled then
         love.report = love.profiler.report(30)
@@ -42,14 +43,5 @@ function love.draw()
     stageManager:getCurrentStage():_draw()
 
     love.graphics.setColor(1, 1, 1, 1)
-
-end
-
-function love.keypressed(key, scancode, isrepeat)
-
-    -- Toggle fullscreen with F11 key
-    if key == "f11" and not isrepeat then
-        --love.window.setFullscreen(not love.window.getFullscreen())
-    end
 
 end

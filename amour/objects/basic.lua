@@ -1,13 +1,16 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.color"
-require "engine.util.math.vector"
-require "engine.core"
-require "engine.stage.object"
+require "amour.util.color"
+local Vector2 = (require "amour.util.math.vector").Vector2
+require "amour.stage.object"
+require "amour.core"
+
+local Basic = {}
 
 -- BASIC SHAPES
 
-RectangleObj = class("Obj-Rect", StageObject)
+local RectangleObj = class("Obj-Rect", StageObject)
+Basic.RectangleObj = RectangleObj
 
 function RectangleObj:constructor(position, size, color)
 
@@ -29,6 +32,7 @@ function RectangleObj:draw()
 end
 
 StaticSpriteObj = class("Obj-StaticSprite", StageObject)
+Basic.StaticSpriteObj = StaticSpriteObj
 
 function StaticSpriteObj:constructor(position, size, color, image)
 
@@ -67,6 +71,7 @@ end
 -- MISCELANEOUS
 
 FpsObj = class("Obj-Fps", StageObject)
+Basic.FpsObj = FpsObj
 
 function FpsObj:constructor(position, color)
 
@@ -82,6 +87,7 @@ function FpsObj:draw()
 end
 
 MouseObj = class("Obj-Mouse", StageObject)
+Basic.MouseObj = MouseObj
 
 function MouseObj:constructor()
 
@@ -94,6 +100,7 @@ function MouseObj:update()
 end
 
 TextObj = class("Obj-Text", StageObject)
+Basic.TextObj = TextObj
 
 function TextObj:constructor(position, color, text, fontSize)
 
@@ -119,3 +126,5 @@ function TextObj:draw()
     love.graphics.print(tostring(self.text), self.position.x, self.position.y)
 
 end
+
+return Basic

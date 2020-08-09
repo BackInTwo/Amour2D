@@ -1,14 +1,14 @@
 local class = require "lib.lua-oop"
 
-require "engine.core"
-require "engine.stage"
-require "engine.util.color"
+require "amour.core"
+require "amour.stage"
+require "amour.util.color"
 
 local template_stage = class("Stage-Template", Stage)
 
-function template_stage:constructor()
+function template_stage:constructor(stageManager)
 
-    Stage.constructor(self) -- don't forget to call superclass constructor
+    Stage.constructor(self, stageManager) -- don't forget to call superclass constructor
 
 end
 

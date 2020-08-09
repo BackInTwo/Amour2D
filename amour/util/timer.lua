@@ -7,6 +7,7 @@ function Timer:constructor(timeOutSecs, oneShoot, start)
     self.timeOutSecs = timeOutSecs
     self.oneShoot = oneShoot
 
+    self.destroyed = false
     self.started = false
     self.hasTimeOuted = false
     self.timeout = false
@@ -23,6 +24,8 @@ end
 
 function Timer:start()
 
+    if self.destroyed then return end
+
     if not (self.started) then
         self.started = true
         self.endSecs = os.time() + self.timeOutSecs
@@ -32,7 +35,7 @@ end
 
 function Timer:update(dt)
 
-    if not self.started then
+    if (not self.started)  or self.destroyed then
         return
     end
 
@@ -64,6 +67,8 @@ end
 
 function Timer:doTimer(dt)
 
+    if self.destroyed then return end
+
     self:start()
     self:update(dt)
 
@@ -71,12 +76,16 @@ end
 
 function Timer:onTimeout(func)
 
+    if self.destroyed then return end
+
     assert(type(func) == "function", "Parameter is not a function (Timer)")
     table.insert(self.onTimeouts, func)
 
 end
 
 function Timer:reset(start)
+
+    if self.destroyed then return end
 
     if start == nil then
         start = true
@@ -94,15 +103,25 @@ end
 
 function Timer:requestReset(start)
 
+    if self.destroyed then return end
+
     self.resetRequested = true
     self.reqResetStart = start
 
 end
 
+function Timer:destroy()
+
+    self.destroyed = true
+
+end
+
 function Timer:executeOnTimeouts()
 
+    if self.destroyed then return end
+
     for key, func in pairs(self.onTimeouts) do
-        func()
+        func(self)
     end
 
 end
