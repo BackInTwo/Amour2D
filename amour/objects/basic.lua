@@ -1,7 +1,7 @@
 local class = require "lib.lua-oop"
+local Vector2 = require ("amour.util.math.vector").Vector2
 
 require "amour.util.color"
-local Vector2 = (require "amour.util.math.vector").Vector2
 require "amour.stage.object"
 require "amour.core"
 
