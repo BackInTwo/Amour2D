@@ -1,14 +1,11 @@
 local class = require "lib.lua-oop"
-
-require "engine.core"
-require "engine.stage"
-require "engine.util.color"
+local Stage = require "engine.stage"
 
 local initial_stage = class("Stage-Initial", Stage)
 
-function initial_stage:constructor()
+function initial_stage:constructor(stageManager)
 
-    Stage.constructor(self) -- Don't forget to always call superclass constructor
+    Stage.constructor(self, stageManager) -- Don't forget to always call superclass constructor
 
 end
 
@@ -21,10 +18,10 @@ function initial_stage:init()
 
     love.window.setTitle("Amour (Base)")
 
-    self:addObject(FpsObj:new())
+    self:addObject(FpsObj:new()) -- Add object, FpsObj is a basic object included with the engine
 
-    self:setInterval(function()
-        print "a"
+    self:setStaticInterval(function()
+        print "Interval timeout! (2 seconds)"
     end, 2)
 
 end
@@ -34,7 +31,7 @@ function initial_stage:update(dt)
     -- update code here
 
     if love.keyboard.isDown("return") then
-        self.stageManager:changeStage("game.stages.initial_stage")
+        self.stageManager:changeStage("game.stages.template_stage")
     end
 
 end

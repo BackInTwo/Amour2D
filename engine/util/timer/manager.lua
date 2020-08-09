@@ -2,7 +2,7 @@ local class = require "lib.lua-oop"
 
 require "engine.util.timer"
 
-TimerManager = class "TimerManager"
+local TimerManager = class "TimerManager"
 
 function TimerManager:constructor()
 
@@ -32,6 +32,17 @@ function TimerManager:setTimeout(func, timeSecs)
 
     self.counter = self.counter + 1
 
+    return self.counter - 1
+
+end
+
+function TimerManager:setStaticTimeout(func, timeSecs)
+
+    local id = self:setTimeout(func, timeSecs)
+    self.timers[id].static = true
+
+    return id
+
 end
 
 function TimerManager:setInterval(func, timeSecs)
@@ -53,6 +64,17 @@ function TimerManager:setInterval(func, timeSecs)
     self.timers[self.counter] = newTimer
 
     self.counter = self.counter + 1
+
+    return self.counter - 1
+
+end
+
+function TimerManager:setStaticInterval(func, timeSecs)
+
+    local id = self:setInterval(func, timeSecs)
+    self.timers[id].static = true
+
+    return id
 
 end
 
@@ -89,10 +111,12 @@ end
 function TimerManager:cleanup()
 
     for k,timer in pairs(self.timers) do
-        if type(timer) == "table" then
+        if type(timer) == "table" and not timer.static then
             self.timers[k] = nil
             timer:destroy()
         end
     end
 
 end
+
+return TimerManager

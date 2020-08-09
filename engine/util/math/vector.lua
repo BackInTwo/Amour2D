@@ -1,6 +1,10 @@
 local class = require "lib.lua-oop"
 
-Vector2 = class "Vector2"
+local Vector = {}
+
+local Vector2 = class "Vector2"
+
+Vector.Vector2 = Vector2
 
 Vector2.static.fromOther = function(vector)
 
@@ -136,3 +140,5 @@ function Vector2:toString()
     return "Vector2(" .. tostring(self.x) .. ", " .. tostring(self.y) .. ")"
 
 end
+
+return Vector

@@ -1,8 +1,8 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.math"
+local Math = require "engine.util.math"
 
-Color = class "Color"
+local Color = class "Color"
 
 Color.static.fromBackgroundColor = function() -- LOVE2D framework
 
@@ -142,7 +142,7 @@ function Color:clip()
 
     -- Improve performance by storing frequent
     -- function in a local variable
-    local clipLoc = clip
+    local clipLoc = Math.clip
 
     self.r = clipLoc(self.r, 0, 255)
     self.g = clipLoc(self.g, 0, 255)

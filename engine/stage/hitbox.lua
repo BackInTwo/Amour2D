@@ -1,6 +1,6 @@
 local class = require "lib.lua-oop"
 
-Hitbox = class("Hitbox")
+local Hitbox = class("Hitbox")
 
 function Hitbox:constructor(position, size, type)
 
@@ -25,3 +25,5 @@ function Hitbox:isHitting(other)
     end
 
 end
+
+return Hitbox

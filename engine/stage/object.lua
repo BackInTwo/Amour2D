@@ -1,9 +1,5 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.math.vector"
-require "engine.util.color"
-require "engine.stage.hitbox"
-
 StageObject = class "StageObject"
 
 function StageObject:constructor(position, size, color)
@@ -11,6 +7,14 @@ function StageObject:constructor(position, size, color)
     self.isFirstUpdate = true
     self.enabled = true
     self.visible = true
+
+end
+
+function StageObject:init() end
+
+function StageObject:_init()
+
+    self:declareModules()
 
     self.rotation = 0
     self.hitbox = Hitbox:new(position, size)
@@ -20,8 +24,6 @@ function StageObject:constructor(position, size, color)
     self:setSize(size)
 
 end
-
-function StageObject:init() end
 
 function StageObject:stageInit() end
 
@@ -38,6 +40,8 @@ function StageObject:_update(dt)
         print("First update of " .. self.parentStage.class.name .. "/" .. self.class.name .. " (object)")
 
         self:firstUpdate()
+
+        self:_init()
 
         self.isFirstUpdate = false
 
@@ -95,6 +99,28 @@ end
 function StageObject:isHitting(otherObject)
 
     return self.hitbox:isHitting(otherObject.hitbox)
+
+end
+
+-- declare global varibles for modules
+function StageObject:declareModules()
+
+    self.modules = self.parentStage.modules
+
+    modules = self.modules
+    class = self.modules.class
+
+    Core = self.modules.Core
+    Basic = self.modules.Basic
+    Color = self.modules.Color
+    Vector2 = self.modules.Vector.Vector2
+
+    Stage = self.modules.Stage
+    StageObject = self.modules.StageObject
+    Hitbox = self.modules.Hitbox
+
+    Timer = self.modules.Timer
+    TimerManager = self.modules.TimerManager
 
 end
 

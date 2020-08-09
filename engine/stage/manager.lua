@@ -1,12 +1,11 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.timer.manager"
-
 StageManager = class "StageManager"
 
-function StageManager:constructor(initialStage)
+function StageManager:constructor(initialStage, modules)
 
-    self.timerManager = TimerManager:new()
+    self.timerManager = modules.TimerManager:new()
+    self.modules = modules
 
     self:changeStage(initialStage)
 
@@ -15,7 +14,7 @@ end
 function StageManager:changeStage(stage)
 
     if type(stage) == "string" then
-        stage = require(stage):new()
+        stage = require(stage):new(self)
     end
 
     assert(type(stage) == "string" or type(stage) == "table", "Stage is not a string path or an object (StageManager)")
@@ -32,6 +31,7 @@ function StageManager:changeStage(stage)
 
     self.currentStage.stageManager = self
     self.currentStage.timerManager = self.timerManager
+    self.currentStage.modules = self.modules
 
     self.currentStage:_init()
 
