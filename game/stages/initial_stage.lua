@@ -19,20 +19,12 @@ function initial_stage:init()
     love.window.setTitle("Amour (Base)")
 
     self:addObject(FpsObj:new()) -- Add object, FpsObj is a basic object included with the engine
-
-    self:setStaticInterval(function()
-        print "Interval timeout! (2 seconds)"
-    end, 2)
-
+    
 end
 
 function initial_stage:update(dt)
 
     -- update code here
-
-    if love.keyboard.isDown("return") then
-        self.stageManager:changeStage("game.stages.template_stage")
-    end
 
 end
 
