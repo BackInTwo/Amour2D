@@ -1,9 +1,9 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.color"
-local Vector2 = (require "engine.util.math.vector").Vector2
-require "engine.stage.object"
-require "engine.core"
+require "amour.util.color"
+local Vector2 = (require "amour.util.math.vector").Vector2
+require "amour.stage.object"
+require "amour.core"
 
 local Basic = {}
 

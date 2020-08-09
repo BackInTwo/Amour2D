@@ -1,8 +1,8 @@
 local class = require "lib.lua-oop"
 
-require "engine.core"
-require "engine.stage"
-require "engine.util.color"
+require "amour.core"
+require "amour.stage"
+require "amour.util.color"
 
 local template_stage = class("Stage-Template", Stage)
 

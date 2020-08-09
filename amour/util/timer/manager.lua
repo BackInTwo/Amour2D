@@ -1,6 +1,6 @@
 local class = require "lib.lua-oop"
 
-require "engine.util.timer"
+require "amour.util.timer"
 
 local TimerManager = class "TimerManager"
 

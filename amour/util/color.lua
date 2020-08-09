@@ -1,6 +1,6 @@
 local class = require "lib.lua-oop"
 
-local Math = require "engine.util.math"
+local Math = require "amour.util.math"
 
 local Color = class "Color"
 

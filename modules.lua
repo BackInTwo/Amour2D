@@ -1,19 +1,19 @@
 modules = {
 
-    Core = require "engine.core",
-    Basic        = require "engine.objects.basic",
+    Core         = require "amour.core",
+    Basic        = require "amour.objects.basic",
 
-    Stage        = require "engine.stage",
-    StageManager = require "engine.stage.manager",
-    StageObject  = require "engine.stage.object",
-    Hitbox       = require "engine.stage.hitbox",
+    Stage        = require "amour.stage",
+    StageManager = require "amour.stage.manager",
+    StageObject  = require "amour.stage.object",
+    Hitbox       = require "amour.stage.hitbox",
 
-    Timer        = require "engine.util.timer",
-    TimerManager = require "engine.util.timer.manager",
+    Timer        = require "amour.util.timer",
+    TimerManager = require "amour.util.timer.manager",
 
-    Color        = require "engine.util.color",
-    Math         = require "engine.util.math",
-    Vector       = require "engine.util.math.vector",
+    Color        = require "amour.util.color",
+    Math         = require "amour.util.math",
+    Vector       = require "amour.util.math.vector",
 
     class        = require "lib.lua-oop",
 

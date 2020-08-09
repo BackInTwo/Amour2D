@@ -1,5 +1,5 @@
 local class = require "lib.lua-oop"
-local Stage = require "engine.stage"
+local Stage = require "amour.stage"
 
 local initial_stage = class("Stage-Initial", Stage)
 
@@ -19,7 +19,7 @@ function initial_stage:init()
     love.window.setTitle("Amour (Base)")
 
     self:addObject(FpsObj:new()) -- Add object, FpsObj is a basic object included with the engine
-    
+
 end
 
 function initial_stage:update(dt)
