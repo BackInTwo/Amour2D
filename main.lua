@@ -24,7 +24,7 @@ function love.update(dt)
 
     math.randomseed(os.clock()*100000000000)
 
-    stageManager:getCurrentStage():_update(dt)
+    stageManager:update(dt)
 
     -- profiling
     love.frame = love.frame + 1
@@ -41,7 +41,5 @@ end
 function love.draw()
 
     stageManager:getCurrentStage():_draw()
-
-    love.graphics.setColor(1, 1, 1, 1)
 
 end

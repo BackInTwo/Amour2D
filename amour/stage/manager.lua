@@ -11,6 +11,14 @@ function StageManager:constructor(initialStage, modules)
 
 end
 
+function StageManager:update(dt)
+    self:getCurrentStage():_update(dt)
+end
+
+function StageManager:draw(dt)
+    self:getCurrentStage():_draw(dt)
+end
+
 function StageManager:changeStage(stage)
 
     if type(stage) == "string" then
@@ -29,6 +37,7 @@ function StageManager:changeStage(stage)
 
     print("Change stage to " .. self.currentStage.class.name)
 
+    -- Defining some util instances in the stage
     self.currentStage.stageManager = self
     self.currentStage.timerManager = self.timerManager
     self.currentStage.modules = self.modules

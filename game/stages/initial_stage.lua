@@ -18,7 +18,9 @@ function initial_stage:init()
 
     love.window.setTitle("Amour (Base)")
 
-    self:addObject(FpsObj:new()) -- Add object, FpsObj is a basic object included with the engine
+    -- Add an object to the stage, FpsObj is a basic object included
+    -- with the engine, it simply shows the fps in the top left corner
+    self:addObject(FpsObj:new())
 
 end
 

@@ -2,11 +2,16 @@ local class = require "lib.lua-oop"
 
 StageObject = class "StageObject"
 
-function StageObject:constructor(position, size, color)
+function StageObject:constructor(position, rotation, size, color)
 
     self.isFirstUpdate = true
     self.enabled = true
     self.visible = true
+
+    self.tPos = position
+    self.tRot = rotation
+    self.tSize = size
+    self.tCol = color
 
 end
 
@@ -14,14 +19,20 @@ function StageObject:init() end
 
 function StageObject:_init()
 
-    self:declareModules()
+    self.parentStage.modules.declare()
 
     self.rotation = 0
     self.hitbox = Hitbox:new(position, size)
 
-    self:setColor(color)
-    self:setPosition(position)
-    self:setSize(size)
+    self:setPosition(self.tPos)
+    self:setRotation(self.tRot)
+    self:setSize(self.tSize)
+    self:setColor(self.tCol)
+
+    self.tPos = nil
+    self.tRot = nil
+    self.tSize = nil
+    self.tCol = nil
 
 end
 
@@ -63,7 +74,7 @@ function StageObject:setPosition(position)
             assert(type(position) == "table", "Position is not an object (StageObject)")
             self.position = position:clone()
         else
-            self.position = Vector2:new(0, 0)
+            self.position = Geometry.Vector2:new(0, 0)
         end
 
 end
@@ -74,7 +85,18 @@ function StageObject:setSize(size)
             assert(type(size) == "table", "Size is not an object (StageObject)")
             self.size = size:clone()
         else
-            self.size = Vector2:new(400, 200)
+            self.size = Geometry.Vector2:new(400, 200)
+        end
+
+end
+
+function StageObject:setRotation(rotation)
+
+        if rotation then
+            assert(type(rotation) == "table", "Rotation is not an object (StageObject)")
+            self.rotation = rotation:clone()
+        else
+            self.rotation = Geometry.Rotation2:new(0)
         end
 
 end
@@ -82,6 +104,7 @@ end
 function StageObject:setColor(color)
 
     if color then
+        assert(type(color) == "table", "Color is not an object (StageObject)")
         self.color = color:clone()
     else
         self.color = Color:new(255, 255, 255, 255)
@@ -99,28 +122,6 @@ end
 function StageObject:isHitting(otherObject)
 
     return self.hitbox:isHitting(otherObject.hitbox)
-
-end
-
--- declare global varibles for modules
-function StageObject:declareModules()
-
-    self.modules = self.parentStage.modules
-
-    modules = self.modules
-    class = self.modules.class
-
-    Core = self.modules.Core
-    Basic = self.modules.Basic
-    Color = self.modules.Color
-    Vector2 = self.modules.Vector.Vector2
-
-    Stage = self.modules.Stage
-    StageObject = self.modules.StageObject
-    Hitbox = self.modules.Hitbox
-
-    Timer = self.modules.Timer
-    TimerManager = self.modules.TimerManager
 
 end
 

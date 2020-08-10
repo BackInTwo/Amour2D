@@ -1,10 +1,12 @@
 local class = require "lib.lua-oop"
 
-local Vector = {}
+local Math = require "amour.util.math"
+
+local Geometry = {}
 
 local Vector2 = class "Vector2"
 
-Vector.Vector2 = Vector2
+Geometry.Vector2 = Vector2
 
 Vector2.static.fromOther = function(vector)
 
@@ -123,15 +125,15 @@ function Vector2:divide(by, y)
 
 end
 
-function Vector2:clone()
-
-    return Vector2:new(self.x, self.y)
-
-end
-
 function Vector2:get()
 
     return { self.x, self.y }
+
+end
+
+function Vector2:clone()
+
+    return Vector2:new(self.x, self.y)
 
 end
 
@@ -141,4 +143,125 @@ function Vector2:toString()
 
 end
 
-return Vector
+local Rotation2 = class("Rotation2")
+Geometry.Rotation2 = Rotation2
+
+Rotation2.static.fromDegrees = function(deg)
+    return Rotation2:new(math.rad(deg))
+end
+
+Rotation2.static.fromVector = function(vec, y)
+
+    local pX = 0
+    local pY = 0
+
+    if type(vec) == "number" then
+        pX = vec
+        if not y then
+            pY = 0
+        end
+        pY = y
+    else
+        pX = vec.x
+        pY = vec.y
+    end
+
+    local hy = Math.hypot(pX, pY)
+
+    local sin = 0
+    local cos = 0
+
+    if hy > 0.00001 then
+        sin = y / hy
+        cos = x / hy
+    else
+        sin = 0.0
+        cos = 1.0
+    end
+
+    return Rotation2:new(math.atan2(sin, cos))
+
+end
+
+function Rotation2:constructor(rad)
+
+    self.rad = rad
+    self.cos = math.cos(rad)
+    self.sin = math.sin(rad)
+
+end
+
+function Rotation2:get()
+    return self.rad
+end
+
+function Rotation2:getDegrees()
+    return math.deg(self:get())
+end
+
+function Rotation2:set(rad)
+    self.rad = rad
+    self.cos = math.cos(rad)
+    self.sin = math.sin(rad)
+    return self
+end
+
+function Rotation2:setDegrees(deg)
+    self:set(math.rad(deg))
+    return self
+end
+
+function Rotation2:tan()
+    return sin / cos
+end
+
+function Rotation2:rotate(by)
+
+    local cos = 0
+    local sin = 0
+
+    if type(by) == "table" then
+        cos = by.cos
+        sin = by.sin
+    else
+        cos = math.cos(by)
+        sin = math.sin(by)
+    end
+
+    local x = self.cos * cos - (sin * cos)
+    local y = self.cos * sin + (sin * cos)
+
+    local hy = Math.hypot(x, y)
+
+    if hy > 0.00001 then
+        self.sin = y / hy
+        self.cos = x / hy
+    else
+        self.sin = 0.0
+        self.cos = 1.0
+    end
+
+    self.rad = math.atan2(self.sin, self.cos)
+
+    return self
+
+end
+
+function Rotation2:invert()
+    self:set(-self.rad)
+end
+
+
+function Rotation2:clone()
+
+    return Rotation2:new(self.rad)
+
+end
+
+function Rotation2:toString()
+
+    return "Rotation2(" .. tostring(self.rad) .. ", " .. tostring(self.cos) .. ", " .. tostring(self.sin) .. ")"
+
+end
+
+return Geometry

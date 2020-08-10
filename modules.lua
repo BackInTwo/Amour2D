@@ -13,7 +13,7 @@ modules = {
 
     Color        = require "amour.util.color",
     Math         = require "amour.util.math",
-    Vector       = require "amour.util.math.vector",
+    Geometry       = require "amour.util.math.geometry",
 
     class        = require "lib.lua-oop",
 
@@ -31,9 +31,8 @@ modules = {
 
         Color = modules.Color
         Math = modules.Math
-        Vector = modules.Vector
-        Vector2 = modules.Vector.Vector2
-
+        Geometry = modules.Geometry
+        
         Timer = modules.Timer
         TimerManager = modules.TimerManager
 

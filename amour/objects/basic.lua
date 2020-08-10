@@ -1,5 +1,5 @@
 local class = require "lib.lua-oop"
-local Vector2 = require ("amour.util.math.vector").Vector2
+local Geometry = require "amour.util.math.geometry"
 
 require "amour.util.color"
 require "amour.stage.object"
@@ -12,9 +12,9 @@ local Basic = {}
 local RectangleObj = class("Obj-Rect", StageObject)
 Basic.RectangleObj = RectangleObj
 
-function RectangleObj:constructor(position, size, color)
+function RectangleObj:constructor(position, rotation, size, color)
 
-    StageObject.constructor(self, position, size, color)
+    StageObject.constructor(self, position, rotation, size, color)
 
 end
 
@@ -34,9 +34,9 @@ end
 StaticSpriteObj = class("Obj-StaticSprite", StageObject)
 Basic.StaticSpriteObj = StaticSpriteObj
 
-function StaticSpriteObj:constructor(position, size, color, image)
+function StaticSpriteObj:constructor(position, rotation, size, color, image)
 
-    StageObject.constructor(self, position, size, color)
+    StageObject.constructor(self, position, rotation, size, color)
 
     self.image = image
 
@@ -75,7 +75,7 @@ Basic.FpsObj = FpsObj
 
 function FpsObj:constructor(position, color)
 
-    StageObject.constructor(self, position, nil, color)
+    StageObject.constructor(self, position, nil, nil, color)
 
 end
 
@@ -91,7 +91,7 @@ Basic.MouseObj = MouseObj
 
 function MouseObj:constructor()
 
-    StageObject.constructor(self, nil, Vector2:new(6, 6), nil)
+    StageObject.constructor(self, nil, nil, Geometry.Vector2:new(6, 6), nil)
 
 end
 
@@ -104,7 +104,7 @@ Basic.TextObj = TextObj
 
 function TextObj:constructor(position, color, text, fontSize)
 
-    StageObject.constructor(self, position, nil, color)
+    StageObject.constructor(self, position, nil, nil, color)
 
     if not fontSize then
         fontSize = 12
