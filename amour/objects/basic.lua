@@ -1,9 +1,9 @@
 local class = require "lib.lua-oop"
 local Geometry = require "amour.util.math.geometry"
 
-require "amour.util.color"
-require "amour.stage.object"
 require "amour.core"
+require "amour.stage.object"
+require "amour.util.color"
 
 local Basic = {}
 
@@ -16,6 +16,7 @@ function RectangleObj:constructor(position, rotation, size, color)
 
     StageObject.constructor(self, position, rotation, size, color)
 
+
 end
 
 function RectangleObj:draw()
@@ -26,8 +27,12 @@ function RectangleObj:draw()
 
     local r, g, b, a = self.color:getDecimal()
 
+    love.graphics.push()
+    love.graphics.translate(self.position.x, self.position.y)
+    love.graphics.rotate(self.rotation:get())
     love.graphics.setColor(r, g, b, a)
-    love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y)
+    love.graphics.rectangle("fill", 0 - (self.size.x * self.offset.x), 0 - (self.size.y * self.offset.y) , self.size.x, self.size.y)
+    love.graphics.pop()
 
 end
 
@@ -56,8 +61,10 @@ function StaticSpriteObj:draw()
 
     local scaleX, scaleY = getImageScaleForNewDimensions(self.image, self.size.x, self.size.y)
 
+    love.graphics.push()
     love.graphics.setColor(r, g, b, a)
     love.graphics.draw(self.image, self.position.x, self.position.y, nil, scaleX, scaleY)
+    love.graphics.pop()
 
 end
 
@@ -81,8 +88,10 @@ end
 
 function FpsObj:draw()
 
+    love.graphics.push()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     love.graphics.print(tostring(love.timer.getFPS()), self.position.x, self.position.y)
+    love.graphics.pop()
 
 end
 
@@ -121,9 +130,11 @@ end
 
 function TextObj:draw()
 
+    love.graphics.push()
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, self.color.a)
     love.graphics.setNewFont(self.fontSize)
     love.graphics.print(tostring(self.text), self.position.x, self.position.y)
+    love.graphics.pop()
 
 end
 

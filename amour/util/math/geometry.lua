@@ -228,8 +228,8 @@ function Rotation2:rotate(by)
         sin = math.sin(by)
     end
 
-    local x = self.cos * cos - (sin * cos)
-    local y = self.cos * sin + (sin * cos)
+    local x = self.cos * cos - self.sin * sin
+    local y = self.cos * sin + self.sin * cos
 
     local hy = Math.hypot(x, y)
 

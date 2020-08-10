@@ -26,6 +26,7 @@ function StageObject:_init()
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
+    self:setOffset()
     self:setSize(self.tSize)
     self:setColor(self.tCol)
 
@@ -57,6 +58,11 @@ function StageObject:_update(dt)
         self.isFirstUpdate = false
 
     end
+
+    -- Clip offset from 0-1
+    local x = Math.clip(self.offset.x, 0, 1)
+    local y = Math.clip(self.offset.y, 0, 1)
+    self.offset:set(x, y)
 
     self:update(dt)
 
@@ -97,6 +103,21 @@ function StageObject:setRotation(rotation)
             self.rotation = rotation:clone()
         else
             self.rotation = Geometry.Rotation2:new(0)
+        end
+
+end
+
+
+function StageObject:setOffset(offset)
+
+        if offset then
+            assert(type(offset) == "table", "Offset is not an object (StageObject)")
+            self.offset = offset:clone()
+            local x = Math.clip(self.offset.x, 0, 1)
+            local y = Math.clip(self.offset.y, 0, 1)
+            self.offset:set(x, y)
+        else
+            self.offset = Geometry.Vector2:new(0.5, 0.5)
         end
 
 end

@@ -20,13 +20,24 @@ function initial_stage:init()
 
     -- Add an object to the stage, FpsObj is a basic object included
     -- with the engine, it simply shows the fps in the top left corner
-    self:addObject(FpsObj:new())
+    self:addObject(Basic.FpsObj:new())
+
+    self.rect = Basic.RectangleObj:new(Geometry.Vector2:new(200, 200), Geometry.Rotation2.fromDegrees(20), Geometry.Vector2:new(200, 100), Color:new(255, 255, 255, 255))
+    self:addObject(self.rect)
 
 end
 
 function initial_stage:update(dt)
 
     -- update code here
+
+    self.rect.position:set(love.mouse.getX(), love.mouse.getY())
+
+    if love.keyboard.isDown("right") then
+        self.rect.rotation:rotate(math.rad(5))
+    elseif love.keyboard.isDown("left") then
+        self.rect.rotation:rotate(math.rad(-5))
+    end
 
 end
 
