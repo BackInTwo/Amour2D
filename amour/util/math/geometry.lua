@@ -40,6 +40,29 @@ function Vector2:set(x, y)
 
 end
 
+function Vector2:rotate(rot)
+
+    local angle = 0
+
+    if type(rot) == "table" then
+        angle = rot:get()
+    else
+        angle = rot
+    end
+
+    local cosA = math.cos(angle)
+    local sinA = math.sin(angle)
+
+    local x  = self.x * cosA - self.y * sinA
+    local y = self.x * sinA + self.y * cosA
+
+    self.x = x
+    self.y = y
+
+    return self
+
+end
+
 function Vector2:minus(by, y)
 
     if not by then g = 1 end

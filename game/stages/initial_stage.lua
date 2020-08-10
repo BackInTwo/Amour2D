@@ -2,6 +2,8 @@ local class = require "lib.lua-oop"
 local Stage = require "amour.stage"
 local Basic = require "amour.objects.basic"
 
+require "amour.util"
+
 local TestRect = class("Stage-TestRect", Basic.RectangleObj)
 
 function TestRect:constructor(other, position, rotation, scale, color)
@@ -48,13 +50,25 @@ function initial_stage:init()
     self.rect2 = TestRect:new(self.rect, Geometry.Vector2:new(200, 200), Geometry.Rotation2.fromDegrees(0), Geometry.Vector2:new(200, 100), Color:new(255, 255, 255, 255))
     self:addObject(self.rect2)
 
+    self.rect.visible = false
+
 end
 
 function initial_stage:update(dt)
 
     -- update code here
 
+    local r = self.rect
+    local poly = GeometryUtil.getRectanglePolygon(r.position, r.rotation, r.size, r.offset)
+    print(table.tostring(poly))
+    print(tostring(love.math.isConvex(poly)))
+
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.polygon("fill", poly)
+
     self.rect.position:set(love.mouse.getX(), love.mouse.getY())
+
+    print(self.rect.position:toString())
 
     if love.keyboard.isDown("right") then
         self.rect.rotation:rotate(0.0872)

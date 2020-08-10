@@ -33,7 +33,7 @@ function StageObject:_init()
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
-    self:setOffset()
+    self:setOffset("center")
     self:setSize(self.tSize)
     self:setColor(self.tCol)
 
@@ -117,14 +117,16 @@ end
 
 function StageObject:setOffset(offset)
 
-        if offset then
-            assert(type(offset) == "table", "Offset is not an object (StageObject)")
-            self.offset = offset:clone()
-            local x = Math.clip(self.offset.x, 0, 1)
-            local y = Math.clip(self.offset.y, 0, 1)
-            self.offset:set(x, y)
+        if not self.offset then
+            self.offset = Geometry.Vector2:new(0, 0)
+        end
+
+        if offset == "center" then
+            self.offset:set(0.5, 0.5)
+        elseif offset == "corner" then
+            self.offset:set(0, 0)
         else
-            self.offset = Geometry.Vector2:new(0.5, 0.5)
+            assert(false, "Offset should be either \"center\" or \"corner\"")
         end
 
 end
