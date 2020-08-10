@@ -8,6 +8,8 @@ function StageObject:constructor(position, rotation, size, color)
     self.enabled = true
     self.visible = true
 
+    self.initialized = false
+
     self.tPos = position
     self.tRot = rotation
     self.tSize = size
@@ -19,16 +21,23 @@ function StageObject:init() end
 
 function StageObject:_init()
 
+    if self.initialized then
+        return
+    end
+
+    self.initialized = true
+
     self.parentStage.modules.declare()
 
     self.rotation = 0
-    self.hitbox = Hitbox:new(position, size)
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
     self:setOffset()
     self:setSize(self.tSize)
     self:setColor(self.tCol)
+
+    self.hitbox = Hitbox:new(self.position, self.size)
 
     self.tPos = nil
     self.tRot = nil
@@ -52,8 +61,6 @@ function StageObject:_update(dt)
         print("First update of " .. self.parentStage.class.name .. "/" .. self.class.name .. " (object)")
 
         self:firstUpdate()
-
-        self:_init()
 
         self.isFirstUpdate = false
 

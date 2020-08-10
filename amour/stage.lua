@@ -78,16 +78,7 @@ function Stage:_init()
 
 end
 
-function Stage:draw()
-
-    local textColor = Color.fromBackgroundColor()
-
-    local r, g, b, a = textColor:invert():getDecimal()
-
-    love.graphics.setColor(r, g, b, 1)
-    love.graphics.print("Superclass draw method called, override " .. self.class.name .. " draw(dt) from your stage class")
-
-end
+function Stage:draw() end
 
 function Stage:_draw()
 
@@ -125,7 +116,7 @@ function Stage:addObject(stageObject)
 
     stageObject.parentStage = self
 
-    stageObject:init()
+    stageObject:_init()
 
     table.insert(self.objects, stageObject)
 

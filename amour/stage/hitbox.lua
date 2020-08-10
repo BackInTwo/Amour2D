@@ -10,14 +10,14 @@ function Hitbox:constructor(position, size, type)
     if type then
         self.type = type
     else
-        self.type = "boundingbox"
+        self.type = "axisaligned"
     end
 
 end
 
 function Hitbox:isHitting(other)
 
-    if string.lower(self.type) == "boundingbox" then
+    if string.lower(self.type) == "axisaligned" then
         return self.position.x < other.position.x + other.size.x and
                other.position.x < self.position.x + self.size.x and
                self.position.y < other.position.y + other.size.y and
