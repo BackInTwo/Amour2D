@@ -14,7 +14,7 @@ end
 -- stuff here such as setting the initial window title, size, etc.
 function initial_stage:init()
 
-    setBackgroundColor(0, 0, 0, 255)
+    Core.setBackgroundColor(0, 0, 0, 255)
 
     love.window.setTitle("Amour (Base)")
 

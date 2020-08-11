@@ -14,7 +14,7 @@ end
 
 function template_stage:init()
 
-    setBackgroundColor(0, 0, 0, 255) -- recommended to set bg color here
+    Core.setBackgroundColor(0, 0, 0, 255) -- recommended to set bg color here
 
 end
 
