@@ -85,7 +85,7 @@ function Stage:_draw()
     for i, obj in ipairs(self.objects) do
         obj.parentStage = self
         if obj.enabled then
-            obj:draw()
+            obj:_draw()
         end
     end
 

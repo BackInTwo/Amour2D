@@ -16,11 +16,7 @@ function RectangleObj:constructor(position, rotation, size, color)
 
 end
 
-function RectangleObj:updateImpl(dt) end
-
 function RectangleObj:update(dt)
-
-    self:updateImpl(dt)
 
     self.poly, self.drawPoly = GeometryRect.getRectanglePolygon(self.position, self.rotation, self.size, self.offset)
 
@@ -28,8 +24,8 @@ end
 
 function RectangleObj:draw()
 
-    if not self.visible then
-        return
+    if not self.drawPoly then
+        return 
     end
 
     local r, g, b, a = self.color:getDecimal()
@@ -74,8 +70,8 @@ function StaticSpriteObj:draw()
 
     love.graphics.push()
     love.graphics.translate(self.position.x, self.position.y)
-    love.graphics.setColor(r, g, b, a)
     love.graphics.rotate(self.rotation:get())
+    love.graphics.setColor(r, g, b, a)
     love.graphics.draw(self.image, 0 - (self.size.x * self:getOffset()), 0 - (self.size.y * self:getOffset()), nil, scaleX, scaleY)
     love.graphics.pop()
 

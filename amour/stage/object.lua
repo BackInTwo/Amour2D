@@ -4,6 +4,8 @@ StageObject = class "StageObject"
 
 function StageObject:constructor(position, rotation, size, color, offset)
 
+    self.behaviors = {}
+
     self.isFirstUpdate = true
     self.enabled = true
     self.visible = true
@@ -73,11 +75,58 @@ function StageObject:_update(dt)
 
     self:updateHitbox()
 
+    self:updateBehaviors()
+
+end
+
+function StageObject:_draw()
+
+    if self.visible then
+        self:draw()
+    end
+
 end
 
 function StageObject:draw() end
 
 function StageObject:beforeChange(nextStage) end
+
+function StageObject:attachBehavior(behavior)
+
+    if type(behavior) == "string" then
+        behavior = require(behavior):new()
+    end
+
+    assert(type(behavior) == "table", "Behavior is not an object (StageObject)")
+
+    behavior.parentObj = self
+
+    table.insert(self.behaviors, behavior)
+    behavior:init()
+
+end
+
+function StageObject:updateBehaviors()
+
+    for i,behavior in ipairs(self.behaviors) do
+        behavior:_update()
+    end
+
+end
+
+function StageObject:updateHitbox()
+
+    self.hitbox.params.position = self.position
+    self.hitbox.params.size = self.size
+    self.hitbox.params.poly = self.poly
+
+end
+
+function StageObject:isHitting(otherObject)
+
+    return self.hitbox:isHitting(otherObject.hitbox)
+
+end
 
 function StageObject:setPosition(position)
 
@@ -148,20 +197,6 @@ function StageObject:setColor(color)
     else
         self.color = Color:new(255, 255, 255, 255)
     end
-
-end
-
-function StageObject:updateHitbox()
-
-    self.hitbox.params.position = self.position
-    self.hitbox.params.size = self.size
-    self.hitbox.params.poly = self.poly
-
-end
-
-function StageObject:isHitting(otherObject)
-
-    return self.hitbox:isHitting(otherObject.hitbox)
 
 end
 
