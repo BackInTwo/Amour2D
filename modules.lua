@@ -1,11 +1,12 @@
 modules = {
 
     Core         = require "amour.core",
-    Basic        = require "amour.objects.basic",
 
     Stage        = require "amour.stage",
     StageManager = require "amour.stage.manager",
     StageObject  = require "amour.stage.object",
+    Basic        = require "amour.stage.objects.basic",
+    Behavior     = require "amour.stage.behavior",
     Hitbox       = require "amour.stage.hitbox",
 
     Timer        = require "amour.util.timer",
