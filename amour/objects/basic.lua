@@ -3,8 +3,6 @@ local Geometry = require "amour.util.math.geometry"
 local Color = require "amour.util.color"
 local StageObject = require "amour.stage.object"
 
-require "amour.core"
-
 local Basic = {}
 
 -- BASIC SHAPES
@@ -62,15 +60,23 @@ function StaticSpriteObj:init()
 
 end
 
+function StaticSpriteObj:update()
+
+    self.poly, self.drawPoly = GeometryRect.getRectanglePolygon(self.position, self.rotation, self.size, self.offset)
+
+end
+
 function StaticSpriteObj:draw()
 
     local r, g, b, a = self.color:getDecimal()
 
-    local scaleX, scaleY = getImageScaleForNewDimensions(self.image, self.size.x, self.size.y)
+    local scaleX, scaleY = Core.getImageScaleForNewDimensions(self.image, self.size.x, self.size.y)
 
     love.graphics.push()
+    love.graphics.translate(self.position.x, self.position.y)
     love.graphics.setColor(r, g, b, a)
-    love.graphics.draw(self.image, self.position.x, self.position.y, nil, scaleX, scaleY)
+    love.graphics.rotate(self.rotation:get())
+    love.graphics.draw(self.image, 0 - (self.size.x * self:getOffset()), 0 - (self.size.y * self:getOffset()), nil, scaleX, scaleY)
     love.graphics.pop()
 
 end

@@ -1,12 +1,14 @@
 require "amour.util.color"
 
-function getBackgroundColor()
+local Core = {}
+
+function Core.getBackgroundColor()
 
     return Color.fromBackgroundColor()
 
 end
 
-function setBackgroundColor(r, g, b, a)
+function Core.setBackgroundColor(r, g, b, a)
 
     if type(r) == "table" then
         r, g, b, a = r.get()
@@ -16,9 +18,11 @@ function setBackgroundColor(r, g, b, a)
 
 end
 
-function getImageScaleForNewDimensions( image, newWidth, newHeight )
+function Core.getImageScaleForNewDimensions( image, newWidth, newHeight )
 
     local currentWidth, currentHeight = image:getDimensions()
     return ( newWidth / currentWidth ), ( newHeight / currentHeight )
 
 end
+
+return Core

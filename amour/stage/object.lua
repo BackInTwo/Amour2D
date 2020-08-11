@@ -45,6 +45,8 @@ function StageObject:_init()
     self.tSize = nil
     self.tCol = nil
 
+    self:init()
+
 end
 
 function StageObject:stageInit() end
