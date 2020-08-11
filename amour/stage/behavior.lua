@@ -4,7 +4,7 @@ local Behavior = class "Behavior"
 
 function Behavior:constructor()
 
-    self.v.firstUpdate = true
+    self.isFirstUpdate = true
 
 end
 
@@ -12,8 +12,8 @@ function Behavior:init() end
 
 function Behavior:_update()
 
-    if self.v.firstUpdate then
-        self.v.firstUpdate = false
+    if self.isFirstUpdate then
+        self.isFirstUpdate = false
         self:firstUpdate()
     end
 
@@ -27,7 +27,7 @@ function Behavior:update() end
 
 -- JUST MORE SHORCUTS
 function Behavior:getCurrentStage()
-    return parentObj.parentStage
+    return self.parentObj.parentStage
 end
 
 function Behavior:changeStage(stage)
@@ -44,6 +44,18 @@ end
 
 function Behavior:getAllObjects()
     return self:getCurrentStage():getAllObjects()
+end
+
+function Behavior:getBehavior(className)
+    return self.parentObj:getBehavior(className)
+end
+
+function Behavior:getBehaviors(className)
+    return self.parentObj:getBehaviors(className)
+end
+
+function Behavior:getAllBehaviors()
+    return self.parentObj:getAllBehaviors()
 end
 
 function Behavior:setTimeout(func, timeSecs)

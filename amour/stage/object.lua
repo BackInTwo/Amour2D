@@ -200,4 +200,36 @@ function StageObject:setColor(color)
 
 end
 
+function StageObject:getBehavior(className)
+
+    for i, behavior in ipairs(self.behavior) do
+        behavior.parentObj = self
+        if behavior.class.name == className then
+            return behavior
+        end
+    end
+
+    return nil
+
+end
+
+function StageObject:getBehaviors(className)
+
+    local behaviors = {}
+
+    for i, behavior in ipairs(self.behaviors) do
+        behavior.parentObj = self
+        if obj.class.name == className then
+            table.insert(objects, behavior)
+        end
+    end
+
+    return objects
+
+end
+
+function StageObject:getAllBehaviors()
+    return self.behaviors
+end
+
 return StageObject
