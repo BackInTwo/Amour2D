@@ -15,6 +15,8 @@ function StageObject:constructor(position, rotation, size, color)
     self.tSize = size
     self.tCol = color
 
+    self:setOffset("center")
+
 end
 
 function StageObject:init() end
@@ -33,11 +35,10 @@ function StageObject:_init()
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
-    self:setOffset("center")
     self:setSize(self.tSize)
     self:setColor(self.tCol)
 
-    self.hitbox = Hitbox:new(self.position, self.size)
+    self.hitbox = Hitbox:new({position=self.position, size=self.size, poly=self.poly})
 
     self.tPos = nil
     self.tRot = nil
@@ -65,11 +66,6 @@ function StageObject:_update(dt)
         self.isFirstUpdate = false
 
     end
-
-    -- Clip offset from 0-1
-    local x = Math.clip(self.offset.x, 0, 1)
-    local y = Math.clip(self.offset.y, 0, 1)
-    self.offset:set(x, y)
 
     self:update(dt)
 
@@ -117,17 +113,28 @@ end
 
 function StageObject:setOffset(offset)
 
-        if not self.offset then
-            self.offset = Geometry.Vector2:new(0, 0)
+        if not offset then
+            self.offset = "center"
+            return
         end
 
-        if offset == "center" then
-            self.offset:set(0.5, 0.5)
-        elseif offset == "corner" then
-            self.offset:set(0, 0)
+        if string.lower(offset) == "center" or "corner" then
+            self.offset = offset
         else
             assert(false, "Offset should be either \"center\" or \"corner\"")
         end
+
+end
+
+function StageObject:getOffset()
+
+    if not self.offset or string.lower(self.offset) == "center" then
+        return 0
+    elseif string.lower(self.offset) == "corner" then
+        return 0.5
+    else
+        assert(false, "Offset should be either \"center\" or \"corner\"")
+    end
 
 end
 
@@ -144,8 +151,9 @@ end
 
 function StageObject:updateHitbox()
 
-    self.hitbox.position = self.position
-    self.hitbox.size = self.size
+    self.hitbox.params.position = self.position
+    self.hitbox.params.size = self.size
+    self.hitbox.params.poly = self.poly
 
 end
 
