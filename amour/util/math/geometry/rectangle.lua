@@ -73,8 +73,6 @@ function GeometryUtil.getRectanglePolygon(position, rotation, size, offset)
         assert(false, "Offset should be either \"center\" or \"corner\"")
     end
 
-    print(tostring(center.x) .. ", " .. tostring(center.y))
-
     local angle = rotation:get()
     local width = size.x
     local height = size.y
@@ -83,24 +81,33 @@ function GeometryUtil.getRectanglePolygon(position, rotation, size, offset)
     local sin = math.sin
 
     local polygon = {}
+    local drawablePoly = {}
 
     local x = center.x - ((width / 2) * cos(angle)) - ((height / 2) * sin(angle))
     local y = center.y - ((width / 2) * sin(angle)) + ((height / 2) * cos(angle))
     table.insert(polygon, {x=x, y=y})
+    table.insert(drawablePoly, x)
+    table.insert(drawablePoly, y)
 
     x = center.x - ((width / 2) * cos(angle)) + ((height / 2) * sin(angle))
     y = center.y - ((width / 2) * sin(angle)) - ((height / 2) * cos(angle))
     table.insert(polygon, {x=x, y=y})
+    table.insert(drawablePoly, x)
+    table.insert(drawablePoly, y)
 
     x = center.x + ((width / 2) * cos(angle)) + ((height / 2) * sin(angle))
     y = center.y + ((width / 2) * sin(angle)) - ((height / 2) * cos(angle))
     table.insert(polygon, {x=x, y=y})
+    table.insert(drawablePoly, x)
+    table.insert(drawablePoly, y)
 
     x = center.x + ((width / 2) * cos(angle)) - ((height / 2) * sin(angle))
     y = center.y + ((width / 2) * sin(angle)) + ((height / 2) * cos(angle))
     table.insert(polygon, {x=x, y=y})
+    table.insert(drawablePoly, x)
+    table.insert(drawablePoly, y)
 
-    return polygon
+    return polygon, drawablePoly
 
 end
 

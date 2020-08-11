@@ -2,7 +2,7 @@ local class = require "lib.lua-oop"
 
 StageObject = class "StageObject"
 
-function StageObject:constructor(position, rotation, size, color)
+function StageObject:constructor(position, rotation, size, color, offset)
 
     self.isFirstUpdate = true
     self.enabled = true
@@ -15,7 +15,7 @@ function StageObject:constructor(position, rotation, size, color)
     self.tSize = size
     self.tCol = color
 
-    self:setOffset("corner")
+    self:setOffset(offset)
 
 end
 
@@ -35,7 +35,6 @@ function StageObject:_init()
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
-    self:setOffset("corner")
     self:setSize(self.tSize)
     self:setColor(self.tCol)
 

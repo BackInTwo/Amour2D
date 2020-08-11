@@ -1,10 +1,9 @@
 local class = require "lib.lua-oop"
 local Geometry = require "amour.util.math.geometry"
-local StageObject = require "amour.stage.object"
 local Color = require "amour.util.color"
+local StageObject = require "amour.stage.object"
 
 require "amour.core"
-require "amour.util"
 
 local Basic = {}
 
@@ -25,8 +24,7 @@ function RectangleObj:update(dt)
 
     self:updateImpl(dt)
 
-    self.poly = GeometryUtil.getRectanglePolygon(self.position, self.rotation, self.size, self.offset)
-    self.drawPoly = GeometryUtil.toDrawablePolygon(self.poly)
+    self.poly, self.drawPoly = GeometryRect.getRectanglePolygon(self.position, self.rotation, self.size, self.offset)
 
 end
 
@@ -40,7 +38,6 @@ function RectangleObj:draw()
 
     love.graphics.push()
     love.graphics.setColor(r, g, b, a)
-    --love.graphics.translate(0 - (self.size.x * self:getOffset()), 0 - (self.size.y * self:getOffset()))
     love.graphics.polygon("fill", self.drawPoly)
     love.graphics.pop()
 

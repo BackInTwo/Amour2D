@@ -14,7 +14,7 @@ modules = {
     Color        = require "amour.util.color",
     Math         = require "amour.util.math",
     Geometry     = require "amour.util.math.geometry",
-    GeometryUtil = require "amour.util.math.geometry.util",
+    GeometryRect = require "amour.util.math.geometry.rectangle",
 
     class        = require "lib.lua-oop",
 
@@ -33,7 +33,7 @@ modules = {
         Color = modules.Color
         Math = modules.Math
         Geometry = modules.Geometry
-        GeometryUtil = modules.GeometryUtil
+        GeometryRect = modules.GeometryRect
 
         Timer = modules.Timer
         TimerManager = modules.TimerManager

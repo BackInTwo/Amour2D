@@ -15,7 +15,7 @@ end
 function TestRect:updateImpl()
 
     self.hitbox:setType("rotated")
-
+    
     if self:isHitting(self.other) then
         self.color:set(127, 127, 127, 255)
     else
