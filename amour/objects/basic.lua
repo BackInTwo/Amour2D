@@ -40,7 +40,7 @@ function RectangleObj:draw()
 
     love.graphics.push()
     love.graphics.setColor(r, g, b, a)
-    love.graphics.translate(0 - (self.size.x * self:getOffset()), 0 - (self.size.y * self:getOffset()))
+    --love.graphics.translate(0 - (self.size.x * self:getOffset()), 0 - (self.size.y * self:getOffset()))
     love.graphics.polygon("fill", self.drawPoly)
     love.graphics.pop()
 

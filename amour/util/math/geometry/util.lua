@@ -1,22 +1,18 @@
 GeometryUtil = {}
 
-function GeometryUtil.getRectangleCenter(position, off)
+function GeometryUtil.getRectangleCenter(position, size, off)
 
-    local offset = 0
-
+    local x = 0
+    local y = 0
     if not off or string.lower(off) == "center" then
-        offset = 0.5
+        x = position.x
+        y = position.y
     elseif string.lower(off) == "corner" then
-        offset = 0
+        x = position.x + (size.x / 2)
+        y = position.y + (size.y / 2)
     else
         assert(false, "Offset should be either \"center\" or \"corner\"")
     end
-
-    local deltaOffX = 0.5 - offset
-    local deltaOffY = 0.5 - offset
-
-    local x = position.x - (position.x * deltaOffX)
-    local y = position.y - (position.y * deltaOffY)
 
     return { x = x, y = y }
 
@@ -39,17 +35,45 @@ function GeometryUtil.getRotRectangleCenter(position, rotation, size, offset)
 
 end
 
+function GeometryUtil.getRectangleCorner(position, size, off)
+
+    local offset = 0
+
+    local x = 0
+    local y = 0
+
+    if not off or string.lower(off) == "center" then
+        x = position.x - (size.x / 2)
+        y = position.y - (size.y / 2)
+    elseif string.lower(off) == "corner" then
+        x = position.x - (size.x / 2)
+        y = position.y - (size.y / 2)
+    else
+        assert(false, "Offset should be either \"center\" or \"corner\"")
+    end
+
+    return { x = x, y = y }
+
+end
+
 function GeometryUtil.getRectanglePolygon(position, rotation, size, offset)
 
-    local center = nil
+    if not offset then
+        offset = "center"
+    end
 
-    if string.lower(offset) == "center" then
+    local center = nil
+    local lowerOffset = string.lower(offset)
+
+    if lowerOffset == "center" then
         center = GeometryUtil.getRectangleCenter(position, offset)
-    elseif string.lower(offset) == "corner" then
+    elseif lowerOffset == "corner" then
         center = GeometryUtil.getRotRectangleCenter(position, rotation, size, offset)
     else
         assert(false, "Offset should be either \"center\" or \"corner\"")
     end
+
+    print(tostring(center.x) .. ", " .. tostring(center.y))
 
     local angle = rotation:get()
     local width = size.x

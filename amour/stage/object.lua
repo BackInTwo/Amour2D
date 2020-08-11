@@ -15,7 +15,7 @@ function StageObject:constructor(position, rotation, size, color)
     self.tSize = size
     self.tCol = color
 
-    self:setOffset("center")
+    self:setOffset("corner")
 
 end
 
@@ -35,6 +35,7 @@ function StageObject:_init()
 
     self:setPosition(self.tPos)
     self:setRotation(self.tRot)
+    self:setOffset("corner")
     self:setSize(self.tSize)
     self:setColor(self.tCol)
 
@@ -129,9 +130,9 @@ end
 function StageObject:getOffset()
 
     if not self.offset or string.lower(self.offset) == "center" then
-        return 0
-    elseif string.lower(self.offset) == "corner" then
         return 0.5
+    elseif string.lower(self.offset) == "corner" then
+        return 0
     else
         assert(false, "Offset should be either \"center\" or \"corner\"")
     end

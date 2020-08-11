@@ -1,4 +1,6 @@
-function table.val_to_str ( v )
+local Util = {}
+
+function Util.val_to_str ( v )
   if "string" == type( v ) then
     v = string.gsub( v, "\n", "\\n" )
     if string.match( string.gsub(v,"[^'\"]",""), '^"+$' ) then
@@ -11,7 +13,7 @@ function table.val_to_str ( v )
   end
 end
 
-function table.key_to_str ( k )
+function Util.key_to_str ( k )
   if "string" == type( k ) and string.match( k, "^[_%a][_%a%d]*$" ) then
     return k
   else
@@ -19,7 +21,7 @@ function table.key_to_str ( k )
   end
 end
 
-function table.tostring( tbl )
+function Util.tostring( tbl )
   local result, done = {}, {}
   for k, v in ipairs( tbl ) do
     table.insert( result, table.val_to_str( v ) )
@@ -31,5 +33,7 @@ function table.tostring( tbl )
         table.key_to_str( k ) .. "=" .. table.val_to_str( v ) )
     end
   end
-  return "{" .. table.concat( result, "," ) .. "}"
+  return "{" .. table.concat( result, ", " ) .. "}"
 end
+
+return Util

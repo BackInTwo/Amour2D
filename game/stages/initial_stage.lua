@@ -2,8 +2,6 @@ local class = require "lib.lua-oop"
 local Stage = require "amour.stage"
 local Basic = require "amour.objects.basic"
 
-require "amour.util"
-
 local TestRect = class("Stage-TestRect", Basic.RectangleObj)
 
 function TestRect:constructor(other, position, rotation, scale, color)
@@ -16,7 +14,7 @@ end
 
 function TestRect:updateImpl()
 
-    self.hitbox.type = "rotated"
+    self.hitbox:setType("rotated")
 
     if self:isHitting(self.other) then
         self.color:set(127, 127, 127, 255)
