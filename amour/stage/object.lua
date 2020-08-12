@@ -75,7 +75,7 @@ function StageObject:_update(dt)
 
     self:updateHitbox()
 
-    self:updateBehaviors()
+    self:updateBehaviors(dt)
 
 end
 
@@ -106,10 +106,10 @@ function StageObject:attachBehavior(behavior)
 
 end
 
-function StageObject:updateBehaviors()
+function StageObject:updateBehaviors(dt)
 
     for i,behavior in ipairs(self.behaviors) do
-        behavior:_update()
+        behavior:_update(dt)
     end
 
 end
@@ -220,11 +220,11 @@ function StageObject:getBehaviors(className)
     for i, behavior in ipairs(self.behaviors) do
         behavior.parentObj = self
         if obj.class.name == className then
-            table.insert(objects, behavior)
+            table.insert(behaviors, behavior)
         end
     end
 
-    return objects
+    return behavior
 
 end
 

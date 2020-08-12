@@ -10,14 +10,14 @@ end
 
 function Behavior:init() end
 
-function Behavior:_update()
+function Behavior:_update(dt)
 
     if self.isFirstUpdate then
         self.isFirstUpdate = false
         self:firstUpdate()
     end
 
-    self:update()
+    self:update(dt)
 
 end
 

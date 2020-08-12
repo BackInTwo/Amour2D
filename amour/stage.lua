@@ -14,6 +14,31 @@ function Stage:constructor(stageManager)
 
 end
 
+function Stage:init()
+
+    love.graphics.setBackgroundColor(0, 0, 0)
+
+end
+
+function Stage:_init()
+
+    for i, obj in ipairs(self.objects) do
+        obj.parentStage = self
+        if obj.enabled then
+            obj:stageInit()
+        end
+    end
+
+    self.mouseObj = self.modules.ObjectsBasic.MouseObj:new()
+    self:addObject(self.mouseObj)
+
+    love.physics.setMeter(64)
+    self.world = love.physics.newWorld(0, 9.81*love.physics.getMeter(), true)
+
+    self:init()
+
+end
+
 function Stage:update(dt) end
 
 function Stage:_update(dt)
@@ -31,7 +56,7 @@ function Stage:_update(dt)
     for i, obj in ipairs(self.objects) do
         obj.parentStage = self
         if obj.enabled then
-            obj:_update()
+            obj:_update(dt)
         end
     end
 
@@ -53,28 +78,6 @@ function Stage:_firstUpdate()
     end
 
     self:firstUpdate()
-
-end
-
-function Stage:init()
-
-    love.graphics.setBackgroundColor(0, 0, 0)
-
-end
-
-function Stage:_init()
-
-    for i, obj in ipairs(self.objects) do
-        obj.parentStage = self
-        if obj.enabled then
-            obj:stageInit()
-        end
-    end
-
-    self.mouseObj = self.modules.Basic.MouseObj:new()
-    self:addObject(self.mouseObj)
-
-    self:init()
 
 end
 
