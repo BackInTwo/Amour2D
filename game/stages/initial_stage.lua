@@ -20,7 +20,7 @@ function initial_stage:init()
 
     -- Add an object to the stage, FpsObj is a basic object included
     -- with the engine, it simply shows the fps in the top left corner
-    self:addObject(Basic.FpsObj:new())
+    self:addObject(ObjectsBasic.FpsObj:new())
 
 end
 

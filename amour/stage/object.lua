@@ -202,7 +202,7 @@ end
 
 function StageObject:getBehavior(className)
 
-    for i, behavior in ipairs(self.behavior) do
+    for i, behavior in ipairs(self.behaviors) do
         behavior.parentObj = self
         if behavior.class.name == className then
             return behavior

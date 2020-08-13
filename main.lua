@@ -8,6 +8,8 @@ function love.load()
 
     love.window.setTitle("")
 
+    love.graphics.setDefaultFilter('nearest', 'nearest') -- recommended
+
     -- profiling stuff, attaches to love module
     love.profiler = require('lib/profile')
     love.profiler.start()

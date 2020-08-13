@@ -60,8 +60,9 @@ function Stage:_update(dt)
         end
     end
 
-    self:update(dt)
+    self.world:update(dt)
 
+    self:update(dt)
     self.timerManager:update()
 
 end
