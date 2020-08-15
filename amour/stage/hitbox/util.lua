@@ -2,6 +2,8 @@ require "amour.util"
 
 local HitboxUtil = {}
 
+-- Taken from https://stackoverflow.com/questions/10962379/how-to-check-intersection-between-2-rotated-rectangles
+-- <3 stackoverflow <3
 function HitboxUtil.doPolygonsIntersect(a, b)
 
     local polygons = { a, b };
