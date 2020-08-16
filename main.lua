@@ -42,6 +42,6 @@ end
 
 function love.draw()
 
-    stageManager:getCurrentStage():_draw()
+    stageManager:draw()
 
 end
